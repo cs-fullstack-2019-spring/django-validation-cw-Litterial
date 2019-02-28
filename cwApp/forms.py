@@ -6,15 +6,16 @@ class CarForm (forms.ModelForm):
         model= Car
         fields= '__all__'
 
-    def findErrors(self):
-         yearData= self.cleaned_data['year']
-         # mphData= self.cleaned_data['mph']
+    def clean_year(self):   #error for years
+        yearData= self.cleaned_data['year']
+        if yearData < 2019:
+            raise forms.ValidationError ("That's not a new car")
+        return yearData
 
-         # if mphData <20:
-         #     raise forms.ValidationError ("That's less than a truck")
-         # if mphData >500:
-         #     raise forms.ValidationError ("That's impossible (in 2019")
-         if yearData >2019:
-             raise forms.ValidationError ("That's not a new car")
-
-         return yearData#,mphData
+    def clean_mph(self):  #errors for mph
+        mphData= self.cleaned_data['mph']
+        if mphData < 20:
+            raise forms.ValidationError ("That's less than a truck")
+        if mphData >500:
+            raise forms.ValidationError ("That's impossible ('in 2019')")
+        return mphData

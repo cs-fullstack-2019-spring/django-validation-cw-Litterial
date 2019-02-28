@@ -5,8 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Templates</h1>
+<h1>List of entries</h1>
+{% for x in allEntries %}
+Make:{{x.make}} <br>
+Model:{{x.model}} <br>
+Year:{{x.year}} <br>
+Miles per Gallon:{{x.mph}}
+<hr>
+{% endfor %}
 
+<h1>Car Form</h1>
 <form  method="post">
     {% csrf_token %}
     {{form.as_p}}
